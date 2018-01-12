@@ -13,7 +13,16 @@ public class DisplayUtils {
 		
 		if(!DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "prefix").equalsIgnoreCase("")){
 			
-			define(p, DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "prefix"));
+			Bukkit.getScheduler().scheduleSyncDelayedTask(MainClass.getInstance(), new Runnable() {
+				
+				@Override
+				public void run() {
+					
+					define(p, DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "prefix"));
+					
+				}
+				
+			}, 5);
 			
 		}else{
 			
@@ -21,7 +30,16 @@ public class DisplayUtils {
 				
 				if(!DataUtils.getGroupStringInfo(DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "group"), "prefix").equalsIgnoreCase("")){
 					
-					define(p, DataUtils.getGroupStringInfo(DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "group"), "prefix"));
+					Bukkit.getScheduler().scheduleSyncDelayedTask(MainClass.getInstance(), new Runnable() {
+						
+						@Override
+						public void run() {
+							
+							define(p, DataUtils.getGroupStringInfo(DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "group"), "prefix"));
+							
+						}
+						
+					}, 5);
 					
 				}
 				
@@ -37,32 +55,25 @@ public class DisplayUtils {
 	@SuppressWarnings("deprecation")
 	private static void define(Player p, String display){
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MainClass.getInstance(), new Runnable() {
+		if(p.getDisplayName().equalsIgnoreCase(p.getName())){
 			
-			@Override
-			public void run() {
-				
-				if(p.getDisplayName().equalsIgnoreCase(p.getName())){
-					
-					p.setDisplayName(display.replaceAll("&", "ง")+p.getName()+"งr");
-					
-					if(s.getTeam(p.getName()) == null){
-						t = s.registerNewTeam(p.getName());
-					}else{
-						t = s.getTeam(p.getName());
-					}
-					t.setPrefix(display.replaceAll("&", "ง"));
-					t.addPlayer(p);
-					
-					for(Player pls : Bukkit.getOnlinePlayers()){
-						pls.setScoreboard(s);
-					}
-					
-				}
-				
+			String prio = display.substring(0, 5);
+			display = display.replaceAll(prio, "");
+			p.setDisplayName(display.replaceAll("&", "ยง")+p.getName()+"ยงr");
+			
+			if(s.getTeam(prio+p.getName().substring(p.getName().length()-1)) == null){
+				t = s.registerNewTeam(prio+p.getName().substring(p.getName().length()-1));
+			}else{
+				t = s.getTeam(prio+p.getName().substring(p.getName().length()-1));
+			}
+			t.setPrefix(display.replaceAll("&", "ยง"));
+			t.addPlayer(p);
+			
+			for(Player pls : Bukkit.getOnlinePlayers()){
+				pls.setScoreboard(s);
 			}
 			
-		}, 5);
+		}
 		
 	}
 

@@ -5,6 +5,8 @@ import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import fr.Maxime3399.MaxPermissions.events.EventsManager;
 import fr.Maxime3399.MaxPermissions.utils.DataUtils;
@@ -13,6 +15,7 @@ import fr.Maxime3399.MaxPermissions.utils.MySQLUtils;
 public class MainClass extends JavaPlugin{
 	
 	private static Plugin plugin;
+	private static Scoreboard s = Bukkit.getScoreboardManager().getMainScoreboard();
 	
 	public void onEnable(){
 		
@@ -34,6 +37,16 @@ public class MainClass extends JavaPlugin{
 			
 			DataUtils.registerPlugin();
 			EventsManager.registerEvent(this);
+			
+		}
+		
+	}
+	
+	public void onDisable(){
+		
+		for(Team teams : s.getTeams()){
+			
+			teams.unregister();
 			
 		}
 		
