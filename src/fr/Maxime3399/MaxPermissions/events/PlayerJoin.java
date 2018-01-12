@@ -2,6 +2,7 @@ package fr.Maxime3399.MaxPermissions.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -11,7 +12,7 @@ import fr.Maxime3399.MaxPermissions.utils.PermissionsUtils;
 
 public class PlayerJoin implements Listener {
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e){
 		
 		Player p = e.getPlayer();

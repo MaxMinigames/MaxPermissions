@@ -32,7 +32,7 @@ public class DataUtils {
 	public static void registerPlayer(Player p){
 		
 		try{
-			MySQLUtils.state.executeUpdate("INSERT INTO `maxpermissions_players` (`uuid`, `info-name`, `info-display`, `info-groups`, `info-perms`) VALUES ('"+p.getUniqueId().toString()+"', '"+p.getName()+"', '', '', '');");
+			MySQLUtils.state.executeUpdate("INSERT INTO `maxpermissions_players` (`uuid`, `info-name`, `info-prefix`, `info-group`, `info-perms`) VALUES ('"+p.getUniqueId().toString()+"', '"+p.getName()+"', '', '', '');");
 		}catch(SQLException e){
 
 		}
