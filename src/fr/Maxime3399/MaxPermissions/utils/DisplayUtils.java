@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import fr.Maxime3399.MaxPermissions.MainClass;
+
 public class DisplayUtils {
 	
 	public static void load(Player p){
@@ -35,23 +37,32 @@ public class DisplayUtils {
 	@SuppressWarnings("deprecation")
 	private static void define(Player p, String display){
 		
-		if(p.getDisplayName().equalsIgnoreCase(p.getName())){
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MainClass.getInstance(), new Runnable() {
 			
-			p.setDisplayName(display.replaceAll("&", "§")+p.getName()+"§r");
-			
-			if(s.getTeam(p.getName()) == null){
-				t = s.registerNewTeam(p.getName());
-			}else{
-				t = s.getTeam(p.getName());
+			@Override
+			public void run() {
+				
+				if(p.getDisplayName().equalsIgnoreCase(p.getName())){
+					
+					p.setDisplayName(display.replaceAll("&", "§")+p.getName()+"§r");
+					
+					if(s.getTeam(p.getName()) == null){
+						t = s.registerNewTeam(p.getName());
+					}else{
+						t = s.getTeam(p.getName());
+					}
+					t.setPrefix(display.replaceAll("&", "§"));
+					t.addPlayer(p);
+					
+					for(Player pls : Bukkit.getOnlinePlayers()){
+						pls.setScoreboard(s);
+					}
+					
+				}
+				
 			}
-			t.setPrefix(display.replaceAll("&", "§"));
-			t.addPlayer(p);
 			
-			for(Player pls : Bukkit.getOnlinePlayers()){
-				pls.setScoreboard(s);
-			}
-			
-		}
+		}, 5);
 		
 	}
 
