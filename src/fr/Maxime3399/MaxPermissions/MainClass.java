@@ -15,7 +15,6 @@ import fr.Maxime3399.MaxPermissions.utils.MySQLUtils;
 public class MainClass extends JavaPlugin{
 	
 	private static Plugin plugin;
-	private static Scoreboard s = Bukkit.getScoreboardManager().getMainScoreboard();
 	
 	public void onEnable(){
 		
@@ -44,6 +43,7 @@ public class MainClass extends JavaPlugin{
 	
 	public void onDisable(){
 		
+		Scoreboard s = Bukkit.getScoreboardManager().getMainScoreboard();
 		for(Team teams : s.getTeams()){
 			
 			teams.unregister();
