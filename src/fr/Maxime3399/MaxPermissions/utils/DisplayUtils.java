@@ -22,7 +22,7 @@ public class DisplayUtils {
 					
 				}
 				
-			}, 5);
+			}, 2);
 			
 		}else{
 			
@@ -39,7 +39,7 @@ public class DisplayUtils {
 							
 						}
 						
-					}, 5);
+					}, 2);
 					
 				}
 				
