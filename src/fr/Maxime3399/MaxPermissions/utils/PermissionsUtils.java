@@ -9,6 +9,7 @@ public class PermissionsUtils {
 	
 	public static void loadPermissions(Player p){
 		
+		p.setOp(false);
 		p.getEffectivePermissions().removeAll(p.getEffectivePermissions());
 		PermissionAttachment attachment = p.addAttachment(MainClass.getInstance());
 		String group = DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "group");
