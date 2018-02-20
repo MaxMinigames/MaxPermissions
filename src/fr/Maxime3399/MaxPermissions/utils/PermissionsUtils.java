@@ -9,7 +9,7 @@ public class PermissionsUtils {
 	
 	public static void loadPermissions(Player p){
 		
-		p.setOp(false);
+		boolean op = false;
 		p.getEffectivePermissions().removeAll(p.getEffectivePermissions());
 		PermissionAttachment attachment = p.addAttachment(MainClass.getInstance());
 		String group = DataUtils.getPlayerStringInfo(p.getUniqueId().toString(), "group");
@@ -21,6 +21,9 @@ public class PermissionsUtils {
 			
 			for(String s : perm){
 				
+				if(s.equalsIgnoreCase("*")) {
+					op = true;
+				}
 				attachment.setPermission(s, true);
 				
 			}
@@ -33,11 +36,16 @@ public class PermissionsUtils {
 			
 			for(String s : perm){
 				
+				if(s.equalsIgnoreCase("*")) {
+					op = true;
+				}
 				attachment.setPermission(s, true);
 				
 			}
 			
 		}
+		
+		p.setOp(op);
 		
 	}
 
